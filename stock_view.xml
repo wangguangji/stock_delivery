@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+    	<record id="view_stock_delivery_form_out" model="ir.ui.view">
+                <field name="name">stock.delivery.picking</field>
+                <field name="model">stock.picking</field>
+                <field name="inherit_id" ref="stock.view_picking_form"/>
+                <field name="arch" type="xml">
+                    <xpath expr="//group/group/field[@name='stock_journal_id']" position='after'>
+                        <field name="delivery_carrier_id" />
+                        <field name="delivery_id" />
+                    </xpath>
+                </field>
+        </record>
+    	
+	    <record id="view_picking_delivery_form_out" model="ir.ui.view">
+            <field name="name">stock.delivery.picking.out.form</field>
+            <field name="model">stock.picking.out</field>
+            <field name="inherit_id" ref="stock.view_picking_out_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group/group/field[@name='stock_journal_id']" position='after'>
+                    <field name="delivery_carrier_id" />
+                    <field name="delivery_id" />
+                </xpath>
+            </field>
+        </record>
+    	
+    	<record model="ir.ui.view" id="stock_delivery_tree_out">
+    	        <field name="name">stock.delivery.view.tree</field>
+    	        <field name="model">stock.picking.out</field>
+    	        <field name="inherit_id" ref="stock.view_picking_out_tree" />
+    	        <field name="arch" type="xml">
+    	            <field name="state" position="before">
+    	               <field name="delivery_carrier_id" />
+    	            </field>
+    	        </field>
+    	</record>
+    	
+    	
+        <record id="view_partners_form_delivary" model="ir.ui.view">
+                <field name="name">view.res.partner.form.delivery.inherited1</field>
+                <field name="model">res.partner</field>
+                <field name="inherit_id" ref="base.view_partner_form"/>
+                <field eval="18" name="priority"/>
+                <field name="arch" type="xml">
+                    <field name="user_id" position="after">
+                        <field name="delivery" completion="1"/>
+                    </field>
+                     <field name="title" position="after">
+                        <field name="identity_card" />
+                        <field name="driving_number" />
+                    </field>
+                    <notebook position="inside">
+                        <page string="图片">
+                            <field name="delivery_image" widget="image" />
+                        </page>
+                </notebook>
+                    
+                    
+                </field>
+        </record>
+    	
+       <record id="view_res_partner_filter_delivery" model="ir.ui.view">
+            <field name="name">res.partner.delivery.inherit.search</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <filter string="Customers" position="after">
+                    <filter string="承运方" name="delivery" domain="[('delivery','=',1)]" />
+                </filter>
+            </field>
+        </record>
+    	
+    	
+    	
+	
+    </data>
+</openerp>

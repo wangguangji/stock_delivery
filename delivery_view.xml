@@ -1,0 +1,135 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_stock_delivery_search">
+            <field name="name">stock.delivery.carrier.search</field>
+            <field name="model">stock.delivery.carrier</field>
+            <field name="arch" type="xml">
+                <search string="运费管理">
+                    <field name="code" string="运单号"/>
+                    <field name="delivery_id" string="押运人"/>
+                    <filter string="完成" domain="[('state', '=', 'done')]" />
+                    <filter string="未完成" domain="[('state', '=', 'draft')]" />
+                    <field name="partner_id" string="承运方"/>
+                    <field name="picking_id" string="出库单"/>
+                    <field name="linkman" string="司机"/>
+                    <group expand="0" string="分组">
+                       <filter string="承运方" icon="terp-personal" domain="[]" context="{'group_by' : 'partner_id'}" />
+                       <filter string="押运人" context="{'group_by': 'delivery_id'}"/>
+                       <filter string="司机" context="{'group_by': 'linkman'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_stock_delivery_form">
+            <field name="name">stock.delivery.carrier.form</field>
+            <field name="model">stock.delivery.carrier</field>
+            <field name="arch" type="xml">
+                <form string="运费" version="7.0">
+                    <header>
+                        <button name="action_done" states="draft" string="处理完成" type="object" class="oe_highlight"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft"/>
+                    </header>
+                    <h1>
+                        <field name="name" class="oe_inline" attrs="{'invisible': [('name','=','/')]}" readonly="1" />
+                    </h1>
+                    <group>
+                            <group>
+                                 <field name="partner_id" domain="[('delivery','=',True)]"/>
+                                 <field name="code" />
+                                 <field name="linkman" domain="[('parent_id','=',partner_id)]" />
+                                <field name="type_id"/>
+                                <field name="delivery_id" />
+                                <field name="amount" />
+                                <field name="pay_amount" />
+                                <field name="un_pay_amount" />
+                            </group>
+                            <group>
+                                <field name="send_date" />
+                                <field name="vehicle_id" domain="[('partner_id','=',partner_id)]" on_change="onchange_vehicle_id(vehicle_id)"/>
+                                <field name="vehicle_code" />
+                                <field name="length" />
+                                <field name="width" />
+                                <field name="height" />
+                                <field name="style" />
+                                <field name="load" />
+                                <field name="picking_id" />
+                            </group>
+                    </group>
+                 <field name="description" placeholder="添加备注描述信息...."/>  
+                 <field name="pay_lines"  >
+                            <tree editable="bottom">
+                                <field name="operator_id"/>
+                                <field name="pay_date" />
+                                <field name="pay_type" />
+                                <field name="amount"/>
+                                <field name="remark" />
+                            </tree>
+                 </field>
+                </form>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="view_stock_delivery_tree">
+            <field name="name">stock.delivery.carrier.tree</field>
+            <field name="model">stock.delivery.carrier</field>
+            <field name="arch" type="xml">
+                <tree string="运费">
+                    <field name="name" />
+                    <field name="code" />
+                    <field name="picking_id" />
+                    <field name="delivery_id" />
+                    <field name="partner_id" />
+                    <field name="send_date" />
+                    <field name="linkman" />
+                    <field name="type_id"/>
+                    <field name="vehicle_id"/>
+                    <field name="amount" sum="Total Tax Included"/>
+                    <field name="pay_amount" sum="Total Tax Included"/>
+                    <field name="un_pay_amount" sum="Total Tax Included"/>
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_partner_delivery_form" model="ir.actions.act_window">
+            <field name="name">承运方</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="domain">[]</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="context">{'search_default_delivery': 1,'default_delivery': 1,'default_supplier': 0}</field>
+            <field name="filter" eval="True"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to add a contact in your address book.
+              </p><p>
+                OpenERP helps you easily track all activities related to
+                a supplier: discussions, history of purchases,
+                documents, etc.
+              </p>
+            </field>
+        </record>
+        
+        
+        <record model="ir.actions.act_window" id="action_stock_delivery_carrier">
+            <field name="name">运费</field>
+            <field name="res_model">stock.delivery.carrier</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_stock_delivery_search"/>
+        </record>
+        
+        <menuitem name="运费管理" id="stock.menu_delivery" sequence="110" />
+        <menuitem id="delivery_config_main" name="运费管理" parent="stock.menu_delivery" sequence="5"/>
+        <menuitem id="delivery_config_setup" name="设置" parent="stock.menu_delivery" sequence="6"/>
+        <menuitem name="运费记录" parent="delivery_config_main" id="menu_stock_delivery_carrier" action="action_stock_delivery_carrier" />
+        
+        <menuitem id="base.menu_procurement_management_delivery_carrier_name" name="承运方"
+            parent="delivery_config_main"
+            action="action_partner_delivery_form" sequence="15"/>
+        
+
+    </data>
+</openerp>

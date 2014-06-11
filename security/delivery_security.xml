@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<openerp>
+<data>
+
+    <record model="ir.module.category" id="module_category_delivery">
+        <field name="name">运费</field>
+        <field name="description">运费管理模块的权限控制</field>
+        <field name="sequence">7</field>
+    </record>
+
+    <record model="res.groups" id="base.group_tool_delivery">
+        <field name="name">配送经理</field>
+        <field name="category_id" ref="module_category_delivery"/>
+    </record>
+
+</data>
+</openerp>
+

@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_stock_vehicle_search">
+            <field name="name">stock.vehicle.search</field>
+            <field name="model">stock.vehicle</field>
+            <field name="arch" type="xml">
+                <search string="车辆">
+                    <field name="code" string="车牌号"/>
+                    <field name="name" string="名称"/>
+                    <field name="load" string="载重"/>
+                    <field name="style" string="围栏形式"/>
+                    <field name="length" string="长"/>
+                    <field name="width" string="宽"/>
+                    <field name="height" string="高"/>
+                    <field name="partner_id" />
+                </search>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_stock_vehicle_form">
+            <field name="name">stock.vehicle.form</field>
+            <field name="model">stock.vehicle</field>
+            <field name="arch" type="xml">
+                <form string="车辆" version="7.0">
+                    <group>
+                            <group>
+                                <field name="code" />
+                                <field name="name" />
+                                <field name="partner_id" />
+                                <field name="load" />
+                                <field name="style" />
+                            </group>
+                            <group>
+                                <field name="length"/>
+                                <field name="width"/>
+                                <field name="height" />
+                            </group>
+                    </group>
+                    <field name="description" placeholder="添加备注描述信息...."/>
+                     <field name="image" widget="image" />
+                </form>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="view_stock_vehicle_tree">
+            <field name="name">stock.vehicle.tree</field>
+            <field name="model">stock.vehicle</field>
+            <field name="arch" type="xml">
+                <tree string="车辆">
+                    <field name="partner_id" />
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="length"/>
+                    <field name="width"/>
+                    <field name="height" />
+                    <field name="load" />
+                    <field name="style" />
+                </tree>
+            </field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="action_stock_vehicle">
+            <field name="name">车辆</field>
+            <field name="res_model">stock.vehicle</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_stock_vehicle_search"/>
+        </record>
+        
+        <menuitem name="车辆设置" parent="delivery_config_setup" id="menu_stock_vehicle" action="action_stock_vehicle" />
+
+    </data>
+</openerp>
