@@ -1,5 +1,9 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_stock_delivery_carrier_delivery,stock.delivery.carrier delivery,model_stock_delivery_carrier,base.group_tool_delivery,1,1,1,1
-access_pay_amount_move_delivery,pay.amount.move delivery,model_pay_amount_move,base.group_tool_delivery,1,1,1,1
-access_stock_transite_type_delivery,stock.transite.type delivery,model_stock_transite_type,base.group_tool_delivery,1,1,1,1
-access_stock_vehicle_delivery,stock.vehicle delivery,model_stock_vehicle,base.group_tool_delivery,1,1,1,1
+access_stock_delivery_carrier_delivery_manager,stock.delivery.carrier delivery,model_stock_delivery_carrier,group_stock_delivery_manager,1,1,1,1
+access_pay_amount_move_delivery_manager,pay.amount.move delivery,model_pay_amount_move,group_stock_delivery_manager,1,1,1,1
+access_stock_transite_type_delivery_manager,stock.transite.type delivery,model_stock_transite_type,group_stock_delivery_manager,1,1,1,1
+access_stock_vehicle_delivery_manager,stock.vehicle delivery,model_stock_vehicle,group_stock_delivery_manager,1,1,1,1
+access_stock_delivery_carrier_delivery_user,stock.delivery.carrier delivery,model_stock_delivery_carrier,group_stock_delivery_user,1,1,1,1
+access_pay_amount_move_delivery_user,pay.amount.move delivery,model_pay_amount_move,group_stock_delivery_user,1,1,1,1
+access_stock_transite_type_delivery_user,stock.transite.type delivery,model_stock_transite_type,group_stock_delivery_user,1,1,1,1
+access_stock_vehicle_delivery_user,stock.vehicle delivery,model_stock_vehicle,group_stock_delivery_user,1,1,1,1

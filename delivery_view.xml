@@ -27,7 +27,7 @@
             <field name="arch" type="xml">
                 <form string="运费" version="7.0">
                     <header>
-                        <button name="action_done" states="draft" string="处理完成" type="object" class="oe_highlight"/>
+                        <button name="action_done" states="draft" string="处理完成" type="object" groups="stock_delivery.group_stock_delivery_manager" class="oe_highlight"/>
                         <field name="state" widget="statusbar" statusbar_visible="draft"/>
                     </header>
                     <h1>
@@ -35,9 +35,9 @@
                     </h1>
                     <group>
                             <group>
-                                 <field name="partner_id" domain="[('delivery','=',True)]"/>
+                                 <field name="partner_id" domain="[('delivery','=',True)]" context="{'default_delivery' : True}"/>
                                  <field name="code" />
-                                 <field name="linkman" domain="[('parent_id','=',partner_id)]" />
+                                 <field name="linkman" domain="[('parent_id','=',partner_id),('delivery','=',True)]" context="{'default_delivery' : True}"/>
                                 <field name="type_id"/>
                                 <field name="delivery_id" />
                                 <field name="amount" />

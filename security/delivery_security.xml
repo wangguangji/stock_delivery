@@ -8,9 +8,16 @@
         <field name="sequence">7</field>
     </record>
 
-    <record model="res.groups" id="base.group_tool_delivery">
-        <field name="name">配送经理</field>
+    <record model="res.groups" id="group_stock_delivery_user">
+        <field name="name">专员</field>
         <field name="category_id" ref="module_category_delivery"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <record model="res.groups" id="group_stock_delivery_manager">
+        <field name="name">经理</field>
+        <field name="category_id" ref="module_category_delivery"/>
+        <field name="implied_ids" eval="[(4, ref('group_stock_delivery_user'))]"/>
     </record>
 
 </data>
